@@ -68,3 +68,6 @@ node_modules/
 
 # functionsの設定
 functions/lib
+
+# hostingの設定
+hosting/build/bundle.js
