@@ -1,15 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Header } from "./main/views/header/Header";
-import { Todo } from "./views/todo/Todo";
+import { Main } from "./pages/main/Main";
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <Header />
-        <Todo />
-      </div>
+      <Main/>
     );
   }
 }

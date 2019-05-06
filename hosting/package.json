@@ -6,6 +6,7 @@
   "dependencies": {
     "@types/react": "^16.8.14",
     "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
@@ -16,7 +17,6 @@
     "webpack-cli": "^3.3.1"
   },
   "devDependencies": {
-    "@types/react-redux": "^7.0.8",
     "css-loader": "^2.1.1",
     "css-modules-typescript-loader": "^2.0.0",
     "style-loader": "^0.23.1",
