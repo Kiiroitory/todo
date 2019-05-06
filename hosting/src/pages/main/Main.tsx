@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Header } from "./views/Header/Header";
-import { TodoInputter } from "../../views/todo/TodoInputter";
+import { TodoInputter } from "../../views/TodoInputter/TodoInputter";
 
 export class Main extends React.Component {
 
