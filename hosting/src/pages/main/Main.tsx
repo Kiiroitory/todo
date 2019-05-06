@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Header } from "./views/Header/Header";
-import { Todo } from "../../views/todo/Todo";
+import { TodoInputter } from "../../views/todo/TodoInputter";
 
 export class Main extends React.Component {
 
@@ -8,7 +8,7 @@ export class Main extends React.Component {
     return (
       <div>
         <Header />
-        <Todo />
+        <TodoInputter />
 
       </div>
     )
