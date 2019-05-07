@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Todo } from "../../pages/main/Main";
 
 export enum Priority {
   High = 'high',
@@ -6,28 +7,32 @@ export enum Priority {
   Low = 'low'
 }
 
-interface TodoState {
-  todo: string
+interface TodoInputterProps {
+  addTodo: (todo: Todo) => void
+}
+
+interface TodoInputterState {
+  text: string
   priority: Priority
 }
 
-export class TodoInputter extends React.Component<{}, TodoState> {
+export class TodoInputter extends React.Component<TodoInputterProps, TodoInputterState> {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      todo: '',
+      text: '',
       priority: Priority.Middle
     }
     this.changeInputTodo = this.changeInputTodo.bind(this)
     this.changeInputPriority = this.changeInputPriority.bind(this)
-    this.show = this.show.bind(this)
+    this.addTodo = this.addTodo.bind(this)
   }
 
   changeInputTodo(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({
-      todo: e.target.value
+      text: e.target.value
       }
     )
   }
@@ -38,9 +43,10 @@ export class TodoInputter extends React.Component<{}, TodoState> {
     })
   }
 
-  show() {
-    console.log(`todo: ${this.state.todo}`)
+  addTodo() {
+    console.log(`todo: ${this.state.text}`)
     console.log(`priority: ${this.state.priority}`)
+    this.props.addTodo(this.state)
   }
 
   render() {
@@ -53,7 +59,7 @@ export class TodoInputter extends React.Component<{}, TodoState> {
             <option value={Priority.Middle}>中</option>
             <option value={Priority.Low}>低</option>
           </select>
-          <button type='button' onClick={this.show}>追加</button>
+          <button type='button' onClick={this.addTodo}>追加</button>
         </form>
       </div>
     )
