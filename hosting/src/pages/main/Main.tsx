@@ -25,14 +25,14 @@ export class Main extends React.Component<{}, MainState> {
     this.todoViews  = this.todoViews.bind(this)
   }
 
-  addTodo(todo: Todo) {
+  private addTodo(todo: Todo) {
     this.setState({ todos: this.state.todos.concat(todo)})
   }
 
   private todoViews(priority: Priority): JSX.Element[] {
     return this.state.todos.filter( todo => todo.priority === priority).map( todo => {
         console.log(`todo: ${JSON.stringify(todo)}`)
-        return <TodoView key={todo.id} text={todo.text}/>
+        return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
     })
   }
 

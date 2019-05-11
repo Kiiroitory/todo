@@ -10,7 +10,7 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route exact path='/' component={Main}/>
-          <Route path='/detail' component={Detail}/>
+          <Route path='/detail/:id' component={Detail}/>
         </Switch>
       </Router>
     );
