@@ -12,7 +12,7 @@ export class TodoView extends React.Component<TodoProps, {}> {
 
   render() {
     return (
-      <li>{this.props.text}</li>
+      <li >{this.props.text}</li>
     )
   }
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Todo } from "../../pages/main/Main";
+import { TodoManager} from "../../models/todo_manager";
 
 export enum Priority {
   High = 'high',
@@ -30,23 +31,27 @@ export class TodoInputter extends React.Component<TodoInputterProps, TodoInputte
     this.addTodo = this.addTodo.bind(this)
   }
 
-  changeInputTodo(e: React.ChangeEvent<HTMLInputElement>) {
+  /** プライベートメソッド **/
+
+  /** イベントハンドラ **/
+
+  private changeInputTodo(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({
       text: e.target.value
       }
     )
   }
 
-  changeInputPriority(e: React.ChangeEvent<HTMLSelectElement>) {
+  private changeInputPriority(e: React.ChangeEvent<HTMLSelectElement>) {
     this.setState({
       priority: e.target.value as Priority
     })
   }
 
-  addTodo() {
+  private addTodo() {
     console.log(`todo: ${this.state.text}`)
     console.log(`priority: ${this.state.priority}`)
-    this.props.addTodo(this.state)
+    this.props.addTodo(TodoManager.instance.createTodo(this.state.text, this.state.priority))
   }
 
   render() {
