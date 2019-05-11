@@ -38,7 +38,8 @@ module.exports = {
   },
   // webpack-dev-serverの設定
   devServer: {
-    contentBase: './build'
+    contentBase: './build',
+    historyApiFallback: true
   }
 
 };

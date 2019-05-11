@@ -11,8 +11,12 @@ export class TodoView extends React.Component<TodoProps, {}> {
   }
 
   render() {
+    const liStyle = {listStyle: 'none'}
+    const buttonStyle = {marginRight: '5px'}
     return (
-      <li >{this.props.text}</li>
+      <React.Fragment>
+        <li style={liStyle}><button style={buttonStyle}>○</button>{this.props.text}</li>
+      </React.Fragment>
     )
   }
 }
