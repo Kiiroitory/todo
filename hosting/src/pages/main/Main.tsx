@@ -5,6 +5,7 @@ import { Header } from "./views/Header/Header";
 import { Priority, TodoInputter } from "../../views/TodoInputter/TodoInputter";
 import { TodoView } from "./views/Todo/Todo";
 import { reducers } from "../../redux/reducers";
+import { addTodo } from "../../redux/actions";
 
 
 interface MainState {
@@ -48,4 +49,14 @@ export class Main extends React.Component<{}, MainState> {
     )
   }
 
+}
+
+const mapStateToProps = state => {
+  return { state }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddTodo: () => dispatch(addTodo())
+  }
 }
