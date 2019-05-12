@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from "redux";
+import * as actinos from '../../redux/actions'
 import { Todo } from "../../pages/main/Main";
 import { TodoManager} from "../../models/todo_manager";
 
@@ -9,7 +12,7 @@ export enum Priority {
 }
 
 interface TodoInputterProps {
-  addTodo: (todo: Todo) => void
+  addTodo?: (todo: Todo) => void
 }
 
 interface TodoInputterState {
@@ -70,3 +73,11 @@ export class TodoInputter extends React.Component<TodoInputterProps, TodoInputte
     )
   }
 }
+
+function mapDispatchToProps(dispatch: Dispatch<actinos.TodoAction>) {
+  return {
+    addTodo: (todo) => dispatch(actinos.addTodo(todo))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(TodoInputter)

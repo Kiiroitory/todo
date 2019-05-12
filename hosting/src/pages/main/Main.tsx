@@ -15,18 +15,16 @@ export interface Todo {
   priority: Priority
 }
 
-export class Main extends React.Component<{}, MainState> {
+interface MainProps {
+  todos: Todo[]
+}
+
+export class Main extends React.Component<MainProps, MainState> {
 
   constructor(props) {
     super(props)
     this.state = { todos: [] }
-
-    this.addTodo = this.addTodo.bind(this)
     this.todoViews  = this.todoViews.bind(this)
-  }
-
-  private addTodo(todo: Todo) {
-    this.setState({ todos: this.state.todos.concat(todo)})
   }
 
   private todoViews(priority: Priority): JSX.Element[] {
@@ -41,7 +39,7 @@ export class Main extends React.Component<{}, MainState> {
     return (
       <div>
         <Header />
-        <TodoInputter addTodo={this.addTodo}/>
+        <TodoInputter/>
         <PriorityHeader title='優先度 - 高' />
         <ul>
           {this.todoViews(Priority.High)}
