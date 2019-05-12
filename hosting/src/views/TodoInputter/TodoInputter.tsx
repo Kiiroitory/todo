@@ -1,5 +1,9 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from "redux";
+import * as actinos from '../../redux/actions'
 import { Todo } from "../../pages/main/Main";
+import { TodoManager} from "../../models/todo_manager";
 
 export enum Priority {
   High = 'high',
@@ -8,7 +12,7 @@ export enum Priority {
 }
 
 interface TodoInputterProps {
-  addTodo: (todo: Todo) => void
+  addTodo?: (todo: Todo) => void
 }
 
 interface TodoInputterState {
@@ -16,7 +20,7 @@ interface TodoInputterState {
   priority: Priority
 }
 
-export class TodoInputter extends React.Component<TodoInputterProps, TodoInputterState> {
+class TodoInputter extends React.Component<TodoInputterProps, TodoInputterState> {
 
   constructor(props) {
     super(props)
@@ -30,23 +34,27 @@ export class TodoInputter extends React.Component<TodoInputterProps, TodoInputte
     this.addTodo = this.addTodo.bind(this)
   }
 
-  changeInputTodo(e: React.ChangeEvent<HTMLInputElement>) {
+  /** プライベートメソッド **/
+
+  /** イベントハンドラ **/
+
+  private changeInputTodo(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({
       text: e.target.value
       }
     )
   }
 
-  changeInputPriority(e: React.ChangeEvent<HTMLSelectElement>) {
+  private changeInputPriority(e: React.ChangeEvent<HTMLSelectElement>) {
     this.setState({
       priority: e.target.value as Priority
     })
   }
 
-  addTodo() {
+  private addTodo() {
     console.log(`todo: ${this.state.text}`)
     console.log(`priority: ${this.state.priority}`)
-    this.props.addTodo(this.state)
+    this.props.addTodo(TodoManager.instance.createTodo(this.state.text, this.state.priority))
   }
 
   render() {
@@ -65,3 +73,11 @@ export class TodoInputter extends React.Component<TodoInputterProps, TodoInputte
     )
   }
 }
+
+function mapDispatchToProps(dispatch: Dispatch<actinos.TodoAction>) {
+  return {
+    addTodo: (todo) => dispatch(actinos.addTodo(todo))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(TodoInputter)

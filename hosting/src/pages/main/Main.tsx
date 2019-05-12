@@ -1,62 +1,61 @@
 import * as React from 'react'
-import { createStore } from "redux";
-import { Provider } from "react-redux";
 import { Header } from "./views/Header/Header";
-import { Priority, TodoInputter } from "../../views/TodoInputter/TodoInputter";
-import { TodoView } from "./views/Todo/Todo";
-import { reducers } from "../../redux/reducers";
-import { addTodo } from "../../redux/actions";
+import TodoInputter, { Priority } from "../../views/TodoInputter/TodoInputter";
+import { TodoView } from "./views/TodoView/TodoView";
+import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
+import { StoreState } from "../../redux/types";
+import { connect } from "react-redux";
 
-
-interface MainState {
-  todos: Todo[]
-}
 
 export interface Todo {
-  text: string,
+  id: number
+  text: string
   priority: Priority
 }
 
-const store = createStore(reducers)
+interface MainProps {
+  todos: Todo[]
+}
 
-export class Main extends React.Component<{}, MainState> {
+class Main extends React.Component<MainProps> {
 
   constructor(props) {
     super(props)
-    this.state = {todos: []}
-
-    this.addTodo = this.addTodo.bind(this)
+    this.todoViews  = this.todoViews.bind(this)
   }
 
-  addTodo(todo: Todo) {
-    this.setState({todos: this.state.todos.concat(todo)})
+  private todoViews(priority: Priority): JSX.Element[] {
+    return this.props.todos.filter( todo => todo.priority === priority).map( todo => {
+        console.log(`todo: ${JSON.stringify(todo)}`)
+        return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
+    })
   }
 
   render() {
 
     return (
-      <Provider store={store}>
-        <div>
-          <Header/>
-          <TodoInputter addTodo={this.addTodo}/>
-          <ul>
-            {this.state.todos.map(todo =>
-              <TodoView text={todo.text}/>
-            )}
-          </ul>
-        </div>
-      </Provider>
+      <div>
+        <Header />
+        <TodoInputter/>
+        <PriorityHeader title='優先度 - 高' />
+        <ul>
+          {this.todoViews(Priority.High)}
+        </ul>
+        <PriorityHeader title='優先度 - 中' />
+        <ul>
+          {this.todoViews(Priority.Middle)}
+        </ul>
+        <PriorityHeader title='優先度 - 低' />
+        <ul>
+          {this.todoViews(Priority.Low)}
+        </ul>
+      </div>
     )
   }
-
 }
 
-const mapStateToProps = state => {
-  return { state }
+function mapStateToProps({ todos }: StoreState) {
+  return { todos }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddTodo: () => dispatch(addTodo())
-  }
-}
+export default connect(mapStateToProps, null)(Main)

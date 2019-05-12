@@ -1,11 +1,16 @@
-import { Priority } from "../../views/TodoInputter/TodoInputter";
+import * as constants from '../constants'
+import { Todo } from "../types";
 
-export const ADD_TODO = 'ADD_TODO'
+export interface AddTodo {
+  type: constants.ADD_TODO
+  todo: Todo
+}
 
-export function addTodo(text: string, priority: Priority) {
+export type TodoAction = AddTodo
+
+export function addTodo(todo: Todo) : AddTodo {
   return {
-    type: ADD_TODO,
-    text: text,
-    priority: Priority
+    type: constants.ADD_TODO,
+    todo: todo
   }
 }

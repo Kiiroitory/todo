@@ -1,26 +1,11 @@
-import { ADD_TODO } from "../actions";
-import { combineReducers } from "redux";
+import { TodoAction} from "../actions";
+import { StoreState} from "../types";
+import {ADD_TODO} from "../constants";
 
-const initialState = {
-  todos: []
-}
-
-export function reducer(state = initialState, action) {
+export function todo(state: StoreState, action: TodoAction): StoreState {
   switch (action.type) {
-    case ADD_TODO: {
-      return Object.assign({}, state, {
-        todos: [
-          ...state.todos,
-          {
-            text: action.text,
-            priority: action.priority
-          }
-        ]
-      })
-    }
-    default:
-      return state
+    case ADD_TODO:
+      return { todos: state.todos.concat(action.todo)}
   }
+  return state
 }
-
-export const reducers = combineReducers({reducer})
