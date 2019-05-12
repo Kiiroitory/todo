@@ -5,6 +5,7 @@ import TodoView from "./views/TodoView/TodoView";
 import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
 import { StoreState, Todo } from "../../redux/types";
 import { connect } from "react-redux";
+import DisplaySelecter from "./views/DisplaySelecter/DisplaySelecter";
 
 
 interface MainProps {
@@ -39,6 +40,7 @@ class Main extends React.Component<MainProps> {
       <div>
         <Header />
         <TodoInputter/>
+        <DisplaySelecter/>
         <PriorityHeader title='優先度 - 高' />
         <ul>
           {this.todoViews(Priority.High)}
@@ -60,7 +62,7 @@ class Main extends React.Component<MainProps> {
   }
 }
 
-function mapStateToProps({ todos }: StoreState) {
+function mapStateToProps({ todos }: StoreState): MainProps {
   return { todos }
 }
 

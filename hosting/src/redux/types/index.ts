@@ -1,6 +1,8 @@
 import { Priority } from "../../views/TodoInputter/TodoInputter";
+import { DisplayType } from "../../pages/main/views/DisplaySelecter/DisplaySelecter";
 
 export interface StoreState {
+  displayType: DisplayType
   todoId: number
   todos: Todo[]
 }
