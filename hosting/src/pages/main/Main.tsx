@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Header } from "./views/Header/Header";
 import TodoInputter, { Priority } from "../../views/TodoInputter/TodoInputter";
-import { TodoView } from "./views/TodoView/TodoView";
+import TodoView from "./views/TodoView/TodoView";
 import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
 import { StoreState, Todo } from "../../redux/types";
 import { connect } from "react-redux";

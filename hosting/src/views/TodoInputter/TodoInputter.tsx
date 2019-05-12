@@ -53,7 +53,7 @@ class TodoInputter extends React.Component<TodoInputterProps, TodoInputterState>
   private addTodo() {
     console.log(`todo: ${this.state.text}`)
     console.log(`priority: ${this.state.priority}`)
-    this.props.addTodo(this.state.text, this.state.priority)
+    this.props.addTodo!(this.state.text, this.state.priority)
   }
 
   render() {
