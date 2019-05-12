@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 interface TodoViewProps {
   id: number
   text: string
-  completeTodo?: (number) => void
+  toggleTodo?: (number) => void
 }
 
 class TodoView extends React.Component<TodoViewProps, {}> {
@@ -15,11 +15,11 @@ class TodoView extends React.Component<TodoViewProps, {}> {
   constructor(props) {
     super(props)
     
-    this.completeTodo = this.completeTodo.bind(this)
+    this.toggleTodo = this.toggleTodo.bind(this)
   }
   
-  private completeTodo() {
-    this.props.completeTodo!(this.props.id)
+  private toggleTodo() {
+    this.props.toggleTodo!(this.props.id)
   }
 
   render() {
@@ -27,15 +27,15 @@ class TodoView extends React.Component<TodoViewProps, {}> {
     const buttonStyle = {marginRight: '5px'}
     return (
       <React.Fragment>
-        <li style={liStyle}><button style={buttonStyle} onClick={this.completeTodo}>○</button><Link to={`/detail/${this.props.id}`}>{this.props.text}</Link></li>
+        <li style={liStyle}><button style={buttonStyle} onClick={this.toggleTodo}>○</button><Link to={`/detail/${this.props.id}`}>{this.props.text}</Link></li>
       </React.Fragment>
     )
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<actions.CompleteTodo>) {
+function mapDispatchToProps(dispatch: Dispatch<actions.ToggleTodo>) {
   return {
-    completeTodo: (id) => dispatch(actions.completeTodo(id))
+    toggleTodo: (id) => dispatch(actions.toggleTodo(id))
   }
 }
 

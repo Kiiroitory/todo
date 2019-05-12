@@ -9,12 +9,12 @@ export interface AddTodo {
   priority: Priority
 }
 
-export interface CompleteTodo {
-  type: constants.COMPLETE_TODO
+export interface ToggleTodo {
+  type: constants.TOGGLE_TODO
   id: number
 }
 
-export type TodoAction = AddTodo | CompleteTodo
+export type TodoAction = AddTodo | ToggleTodo
 
 
 /** ActionCreatorの定義 **/
@@ -27,6 +27,6 @@ export function addTodo(text: string, priority: Priority): AddTodo {
   }
 }
 
-export function completeTodo(id: number): CompleteTodo {
-  return { type: constants.COMPLETE_TODO, id}
+export function toggleTodo(id: number): ToggleTodo {
+  return { type: constants.TOGGLE_TODO, id}
 }
