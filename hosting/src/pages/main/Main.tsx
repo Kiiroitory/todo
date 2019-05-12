@@ -5,10 +5,6 @@ import { TodoView } from "./views/TodoView/TodoView";
 import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
 
 
-interface MainState {
-  todos: Todo[]
-}
-
 export interface Todo {
   id: number
   text: string
@@ -19,16 +15,15 @@ interface MainProps {
   todos: Todo[]
 }
 
-export class Main extends React.Component<MainProps, MainState> {
+export class Main extends React.Component<MainProps> {
 
   constructor(props) {
     super(props)
-    this.state = { todos: [] }
     this.todoViews  = this.todoViews.bind(this)
   }
 
   private todoViews(priority: Priority): JSX.Element[] {
-    return this.state.todos.filter( todo => todo.priority === priority).map( todo => {
+    return this.props.todos.filter( todo => todo.priority === priority).map( todo => {
         console.log(`todo: ${JSON.stringify(todo)}`)
         return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
     })
