@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Main from "./redux/containers/Main"
+import Main from "./pages/main/Main"
 import { Detail } from "./pages/detail/Detail";
 // redux対応
 import { createStore } from "redux";

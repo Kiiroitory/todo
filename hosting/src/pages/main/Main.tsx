@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { Header } from "./views/Header/Header";
-import { Priority, TodoInputter } from "../../views/TodoInputter/TodoInputter";
+import TodoInputter, { Priority } from "../../views/TodoInputter/TodoInputter";
 import { TodoView } from "./views/TodoView/TodoView";
 import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
+import { StoreState } from "../../redux/types";
+import { connect } from "react-redux";
 
 
 export interface Todo {
@@ -15,7 +17,7 @@ interface MainProps {
   todos: Todo[]
 }
 
-export class Main extends React.Component<MainProps> {
+class Main extends React.Component<MainProps> {
 
   constructor(props) {
     super(props)
@@ -50,5 +52,10 @@ export class Main extends React.Component<MainProps> {
       </div>
     )
   }
-
 }
+
+function mapStateToProps({ todos }: StoreState) {
+  return { todos }
+}
+
+export default connect(mapStateToProps, null)(Main)

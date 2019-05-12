@@ -20,7 +20,7 @@ interface TodoInputterState {
   priority: Priority
 }
 
-export class TodoInputter extends React.Component<TodoInputterProps, TodoInputterState> {
+class TodoInputter extends React.Component<TodoInputterProps, TodoInputterState> {
 
   constructor(props) {
     super(props)
