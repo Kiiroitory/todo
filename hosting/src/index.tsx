@@ -11,6 +11,7 @@ import { TodoAction } from "./redux/actions";
 import { Provider } from 'react-redux';
 
 const store = createStore<StoreState, TodoAction, any, any>(todo, {
+  todoId: 0,
   todos: []
 })
 

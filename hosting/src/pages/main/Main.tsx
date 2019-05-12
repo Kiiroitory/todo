@@ -3,15 +3,9 @@ import { Header } from "./views/Header/Header";
 import TodoInputter, { Priority } from "../../views/TodoInputter/TodoInputter";
 import { TodoView } from "./views/TodoView/TodoView";
 import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
-import { StoreState } from "../../redux/types";
+import { StoreState, Todo } from "../../redux/types";
 import { connect } from "react-redux";
 
-
-export interface Todo {
-  id: number
-  text: string
-  priority: Priority
-}
 
 interface MainProps {
   todos: Todo[]
@@ -22,12 +16,20 @@ class Main extends React.Component<MainProps> {
   constructor(props) {
     super(props)
     this.todoViews  = this.todoViews.bind(this)
+    this.completedViews = this.completedViews.bind(this)
   }
 
   private todoViews(priority: Priority): JSX.Element[] {
-    return this.props.todos.filter( todo => todo.priority === priority).map( todo => {
+    return this.props.todos.filter( todo => todo.priority === priority && todo.completed === false).map( todo => {
         console.log(`todo: ${JSON.stringify(todo)}`)
         return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
+    })
+  }
+
+  private completedViews(): JSX.Element[] {
+    return this.props.todos.filter( todo => todo.completed === true).map( todo => {
+      console.log(`todo: ${JSON.stringify(todo)}`)
+      return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
     })
   }
 
@@ -48,6 +50,10 @@ class Main extends React.Component<MainProps> {
         <PriorityHeader title='優先度 - 低' />
         <ul>
           {this.todoViews(Priority.Low)}
+        </ul>
+        <PriorityHeader title='完了' />
+        <ul>
+          {this.completedViews()}
         </ul>
       </div>
     )
