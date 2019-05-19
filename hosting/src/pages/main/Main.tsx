@@ -5,10 +5,11 @@ import TodoView from "./views/TodoView/TodoView";
 import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
 import { StoreState, Todo } from "../../redux/types";
 import { connect } from "react-redux";
-import DisplaySelecter from "./views/DisplaySelecter/DisplaySelecter";
+import DisplaySelecter, { DisplayType } from "./views/DisplaySelecter/DisplaySelecter";
 
 
 interface MainProps {
+  displayType: DisplayType
   todos: Todo[]
 }
 
@@ -34,6 +35,7 @@ class Main extends React.Component<MainProps> {
     })
   }
 
+  // TOOD: displayTypeに応じて表示する要素を修正すること
   render() {
 
     return (
@@ -62,8 +64,8 @@ class Main extends React.Component<MainProps> {
   }
 }
 
-function mapStateToProps({ todos }: StoreState): MainProps {
-  return { todos }
+function mapStateToProps({ displayType, todos }: StoreState): MainProps {
+  return { displayType, todos }
 }
 
 export default connect(mapStateToProps, null)(Main)
