@@ -55,7 +55,7 @@ function display(state: DisplayState = initialDisplayState, action: DisplayActio
   return state
 }
 
-export const rootReducer = combineReducers({
+export const rootReducer = combineReducers<StoreState>({
   todo: todo,
   display: display
 })

@@ -14,7 +14,7 @@ import { Option, some, none} from "fp-ts/lib/Option";
 import { number } from "prop-types";
 import { log } from "util";
 
-const store = createStore(rootReducer)
+const store = createStore<StoreState, any, any, any>(rootReducer)
 
 
 class App extends React.Component {
