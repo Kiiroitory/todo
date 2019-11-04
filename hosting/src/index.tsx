@@ -5,17 +5,35 @@ import Main from "./pages/main/Main"
 import { Detail } from "./pages/detail/Detail";
 // redux対応
 import { createStore } from "redux";
-import { todo } from "./redux/reducers";
+import { rootReducer, todo } from "./redux/reducers";
 import { StoreState } from "./redux/types";
 import { TodoAction } from "./redux/actions";
 import { Provider } from 'react-redux';
+import { Either, fromNullable, left, right } from "fp-ts/lib/Either";
+import { Option, some, none} from "fp-ts/lib/Option";
+import { number } from "prop-types";
+import { log } from "util";
 
-const store = createStore<StoreState, TodoAction, any, any>(todo, {
-  todoId: 0,
-  todos: []
-})
+const store = createStore(rootReducer)
+
 
 class App extends React.Component {
+
+  * range(start = 0, finish = Number.POSITIVE_INFINITY) {
+    for (let i = start; i< finish; i++) {
+      console.log(`yieldの前${i}`)
+      yield i;
+      console.log(`yieldの後${i}`)
+    }
+  }
+
+  componentDidMount(): void {
+
+    const num = this.range(1)
+    console.log('ログ出力開始')
+    console.log(num.next().value)
+  }
+
   render() {
     return (
       <Router>

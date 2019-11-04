@@ -3,6 +3,7 @@ import { StoreState } from "../../../../redux/types";
 import { Dispatch } from "redux";
 import * as actinos from "../../../../redux/actions";
 import { connect } from "react-redux";
+import { DisplayState } from "../../../../redux/reducers";
 
 
 export enum DisplayType {
@@ -44,7 +45,7 @@ class DisplaySelecter extends React.Component<DisplaySelecterProps> {
   }
 }
 
-function mapStateToProps({ displayType }: StoreState): DisplaySelecterProps {
+function mapStateToProps({ displayType }: DisplayState): DisplaySelecterProps {
   return { displayType }
 }
 

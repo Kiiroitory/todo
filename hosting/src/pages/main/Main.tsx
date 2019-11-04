@@ -6,11 +6,12 @@ import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
 import { StoreState, Todo } from "../../redux/types";
 import { connect } from "react-redux";
 import DisplaySelecter, { DisplayType } from "./views/DisplaySelecter/DisplaySelecter";
+import { DisplayState, TodoState } from "../../redux/reducers";
 
 
 interface MainProps {
-  displayType: DisplayType
-  todos: Todo[]
+  todo: TodoState
+  display: DisplayState
 }
 
 class Main extends React.Component<MainProps> {
@@ -22,14 +23,14 @@ class Main extends React.Component<MainProps> {
   }
 
   private todoViews(priority: Priority): JSX.Element[] {
-    return this.props.todos.filter( todo => todo.priority === priority && todo.completed === false).map( todo => {
+    return this.props.todo.todos.filter( todo => todo.priority === priority && todo.completed === false).map( todo => {
         console.log(`todo: ${JSON.stringify(todo)}`)
         return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
     })
   }
 
   private completedViews(): JSX.Element[] {
-    return this.props.todos.filter( todo => todo.completed === true).map( todo => {
+    return this.props.todo.todos.filter( todo => todo.completed === true).map( todo => {
       console.log(`todo: ${JSON.stringify(todo)}`)
       return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
     })
@@ -64,8 +65,8 @@ class Main extends React.Component<MainProps> {
   }
 }
 
-function mapStateToProps({ displayType, todos }: StoreState): MainProps {
-  return { displayType, todos }
+function mapStateToProps({ display, todo }: StoreState): MainProps {
+  return { display, todo }
 }
 
 export default connect(mapStateToProps, null)(Main)

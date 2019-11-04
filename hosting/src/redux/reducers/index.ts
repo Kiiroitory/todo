@@ -1,8 +1,21 @@
 import { DisplayAction, TodoAction } from "../actions";
 import { StoreState, Todo } from "../types";
 import { ADD_TODO, CHANGE_DISPLAY, TOGGLE_TODO } from "../constants";
+import { DisplayType } from "../../pages/main/views/DisplaySelecter/DisplaySelecter";
+import { combineReducers } from "redux";
 
-export function todo(state: StoreState, action: TodoAction): StoreState {
+export interface TodoState {
+  todoId: number // TODOを一意に認識するために割り当てるユニークIDを管理する（発行する毎に+1される）
+  todos: Todo[]
+}
+
+const initialState: TodoState = {
+  todoId: 0,
+  todos: []
+}
+
+
+export function todo(state: TodoState = initialState, action: TodoAction): TodoState {
 
   switch (action.type) {
 
@@ -24,11 +37,25 @@ export function todo(state: StoreState, action: TodoAction): StoreState {
   return state
 }
 
-export function display(state: StoreState, action: DisplayAction) {
+
+export interface DisplayState {
+  displayType: DisplayType
+}
+
+const initialDisplayState: DisplayState = {
+  displayType: DisplayType.ALL
+}
+
+function display(state: DisplayState = initialDisplayState, action: DisplayAction): DisplayState {
 
   switch (action.type) {
     case CHANGE_DISPLAY:
       return {...state, displayType: action.displayType}
   }
-
+  return state
 }
+
+export const rootReducer = combineReducers({
+  todo: todo,
+  display: display
+})
