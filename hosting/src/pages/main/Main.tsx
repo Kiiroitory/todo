@@ -17,8 +17,6 @@ class Main extends React.Component<MainProps> {
 
   constructor(props) {
     super(props)
-    this.todoViews = this.todoViews.bind(this)
-    this.completedViews = this.completedViews.bind(this)
   }
 
   render() {
@@ -27,17 +25,19 @@ class Main extends React.Component<MainProps> {
         <Header/>
         <TodoInputter/>
         <DisplaySelecter/>
-        { this.isShowTodo() ? this.renderTodos() : null }
-        { this.isShowDone() ? this.renderDone() : null }
+        { this.isShowTodo() ? this.renderTodo() : null }
+        { this.isShowCompleted() ? this.renderCompleted() : null }
       </div>
     )
   }
+
+  /** プライベートメソッド **/
 
   private isShowTodo(): boolean {
     return this.props.display === DisplayType.ALL || this.props.display === DisplayType.TODO
   }
 
-  private renderTodos(): JSX.Element {
+  private renderTodo(): JSX.Element {
     return (
       <>
         <PriorityHeader title='優先度 - 高'/>
@@ -63,11 +63,11 @@ class Main extends React.Component<MainProps> {
     })
   }
 
-  private isShowDone(): boolean {
+  private isShowCompleted(): boolean {
     return this.props.display === DisplayType.ALL || this.props.display === DisplayType.COMPLETE
   }
 
-  private renderDone(): JSX.Element {
+  private renderCompleted(): JSX.Element {
     return (
       <>
         <PriorityHeader title='完了'/>
