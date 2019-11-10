@@ -28,7 +28,7 @@ class TodoView extends React.Component<TodoViewProps, {}> {
     const buttonStyle = {marginRight: '5px'}
     return (
       <React.Fragment>
-        <li style={liStyle}><button style={buttonStyle} onClick={this.props.toggleTodo}>○</button><Link to={`/detail/${this.props.id}`}>{this.props.text}</Link></li>
+        <li style={liStyle}><button style={buttonStyle} onClick={this.toggleTodo}>○</button><Link to={`/detail/${this.props.id}`}>{this.props.text}</Link></li>
       </React.Fragment>
     )
   }
