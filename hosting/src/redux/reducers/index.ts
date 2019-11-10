@@ -25,6 +25,7 @@ export function todo(state: TodoState = initialState, action: TodoAction): TodoS
       return {...state, todoId: newTodoId, todos: state.todos.concat(newTodo)}
 
     case TOGGLE_TODO:
+      console.log(`action.id: ${action.id}`)
       const newTodos = state.todos.map(todo => {
         if (todo.id === action.id) {
           return {...todo, completed: !todo.completed}
@@ -32,6 +33,7 @@ export function todo(state: TodoState = initialState, action: TodoAction): TodoS
           return todo
         }
       })
+      console.log(`todos: ${JSON.stringify(newTodos)}`)
       return {...state, todos: newTodos }
   }
   return state

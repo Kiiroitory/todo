@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./pages/main/Main"
 import { Detail } from "./pages/detail/Detail";
 // redux対応
-import { createStore } from "redux";
+import { createStore, compose } from "redux";
 import { rootReducer, todo } from "./redux/reducers";
 import { StoreState } from "./redux/types";
 import { TodoAction } from "./redux/actions";
@@ -14,7 +14,8 @@ import { Option, some, none} from "fp-ts/lib/Option";
 import { number } from "prop-types";
 import { log } from "util";
 
-const store = createStore<StoreState, any, any, any>(rootReducer)
+const store = createStore<StoreState, any, any, any>(rootReducer,
+  window['__REDUX_DEVTOOLS_EXTENSION__'] as typeof compose &&  (window as any).__REDUX_DEVTOOLS_EXTENSION__())
 
 
 class App extends React.Component {
