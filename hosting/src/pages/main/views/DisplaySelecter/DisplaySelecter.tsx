@@ -45,8 +45,8 @@ class DisplaySelecter extends React.Component<DisplaySelecterProps> {
   }
 }
 
-function mapStateToProps({ displayType }: DisplayState): DisplaySelecterProps {
-  return { displayType }
+function mapStateToProps({ display }: StoreState): DisplaySelecterProps {
+  return { displayType: display.displayType }
 }
 
 function mapDispatchToProps(dispatch: Dispatch<actinos.DisplayAction>) {

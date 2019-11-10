@@ -34,10 +34,4 @@ class TodoView extends React.Component<TodoViewProps, {}> {
   }
 }
 
-function mapDispatchToProps(dispatch: Dispatch<actions.ToggleTodo>) {
-  return {
-    toggleTodo: (id) => dispatch(actions.toggleTodo(id))
-  }
-}
-
 export default connect(null, { toggleTodo })(TodoView)

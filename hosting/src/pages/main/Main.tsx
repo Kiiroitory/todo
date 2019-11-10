@@ -6,67 +6,89 @@ import { PriorityHeader } from "./views/PriorityHeader/PriorityHeader";
 import { StoreState, Todo } from "../../redux/types";
 import { connect } from "react-redux";
 import DisplaySelecter, { DisplayType } from "./views/DisplaySelecter/DisplaySelecter";
-import { DisplayState, TodoState } from "../../redux/reducers";
 
 
 interface MainProps {
-  todo: TodoState
-  display: DisplayState
+  display: DisplayType
+  todos: Todo[]
 }
 
 class Main extends React.Component<MainProps> {
 
   constructor(props) {
     super(props)
-    this.todoViews  = this.todoViews.bind(this)
+    this.todoViews = this.todoViews.bind(this)
     this.completedViews = this.completedViews.bind(this)
   }
 
-  private todoViews(priority: Priority): JSX.Element[] {
-    return this.props.todo.todos.filter( todo => todo.priority === priority && todo.completed === false).map( todo => {
-        console.log(`todo: ${JSON.stringify(todo)}`)
-        return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
-    })
+  render() {
+    return (
+      <div>
+        <Header/>
+        <TodoInputter/>
+        <DisplaySelecter/>
+        { this.isShowTodo() ? this.renderTodos() : null }
+        { this.isShowDone() ? this.renderDone() : null }
+      </div>
+    )
   }
 
-  private completedViews(): JSX.Element[] {
-    return this.props.todo.todos.filter( todo => todo.completed === true).map( todo => {
+  private isShowTodo(): boolean {
+    return this.props.display === DisplayType.ALL || this.props.display === DisplayType.TODO
+  }
+
+  private renderTodos(): JSX.Element {
+    return (
+      <>
+        <PriorityHeader title='優先度 - 高'/>
+        <ul>
+          {this.todoViews(Priority.High)}
+        </ul>
+        <PriorityHeader title='優先度 - 中'/>
+        <ul>
+          {this.todoViews(Priority.Middle)}
+        </ul>
+        <PriorityHeader title='優先度 - 低'/>
+        <ul>
+          {this.todoViews(Priority.Low)}
+        </ul>
+      </>
+    )
+  }
+
+  private todoViews(priority: Priority): JSX.Element[] {
+    return this.props.todos.filter(todo => todo.priority === priority && todo.completed === false).map(todo => {
       console.log(`todo: ${JSON.stringify(todo)}`)
       return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
     })
   }
 
-  // TOOD: displayTypeに応じて表示する要素を修正すること
-  render() {
+  private isShowDone(): boolean {
+    return this.props.display === DisplayType.ALL || this.props.display === DisplayType.COMPLETE
+  }
 
+  private renderDone(): JSX.Element {
     return (
-      <div>
-        <Header />
-        <TodoInputter/>
-        <DisplaySelecter/>
-        <PriorityHeader title='優先度 - 高' />
-        <ul>
-          {this.todoViews(Priority.High)}
-        </ul>
-        <PriorityHeader title='優先度 - 中' />
-        <ul>
-          {this.todoViews(Priority.Middle)}
-        </ul>
-        <PriorityHeader title='優先度 - 低' />
-        <ul>
-          {this.todoViews(Priority.Low)}
-        </ul>
-        <PriorityHeader title='完了' />
+      <>
+        <PriorityHeader title='完了'/>
         <ul>
           {this.completedViews()}
         </ul>
-      </div>
+      </>
     )
+
+  }
+
+  private completedViews(): JSX.Element[] {
+    return this.props.todos.filter(todo => todo.completed === true).map(todo => {
+      console.log(`todo: ${JSON.stringify(todo)}`)
+      return <TodoView key={todo.id} id={todo.id} text={todo.text}/>
+    })
   }
 }
 
-function mapStateToProps({ display, todo }: StoreState): MainProps {
-  return { display, todo }
+function mapStateToProps({display, todo}: StoreState): MainProps {
+  return {display: display.displayType, todos: todo.todos}
 }
 
 export default connect(mapStateToProps, null)(Main)
